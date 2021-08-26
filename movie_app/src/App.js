@@ -1,8 +1,12 @@
 import './App.css';
+import Potato from './Potato';
 
 function App() {
   return (
-    <div className="App">Hello!</div>
+    <div className="App">
+      Hello!
+      <Potato/>
+    </div>
   );
 }
 
