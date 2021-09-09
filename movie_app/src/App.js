@@ -28,20 +28,25 @@ class App extends React.Component {
           ? <div className="loader">
             <span className="loader__text">Loading...</span>
           </div>
-          : movies.map((movie) => {
-            const { id, year, title, summary, medium_cover_image, genres } = movie;
-            return (
-              <Movie
-                key={id}
-                id={id}
-                year={year}
-                title={title}
-                summary={summary}
-                poster={medium_cover_image}
-                genres={genres}
-              />
-            );
-          })}
+          : <div className="movies">
+            {
+              movies.map((movie) => {
+                const { id, year, title, summary, medium_cover_image, genres } = movie;
+                return (
+                  <Movie
+                    key={id}
+                    id={id}
+                    year={year}
+                    title={title}
+                    summary={summary}
+                    poster={medium_cover_image}
+                    genres={genres}
+                  />
+                );
+              })
+            }
+          </div>
+        }
       </section>
     );
   }
