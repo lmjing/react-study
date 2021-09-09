@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 import "./Movie.css";
 
 function Movie({ id, year, title, summary, poster, genres }) {
-    console.log(genres)
+    const getSummary = () => {
+        const length = summary.length;
+        return summary.slice(0, 180) + (length > 180 ? "..." : "");
+    }
+
     return <div className="movie">
         <img src={poster} className="poster" />
         <div className="movie__data">
@@ -18,7 +22,7 @@ function Movie({ id, year, title, summary, poster, genres }) {
                     )
                 }
             </ul>
-            <p className="movie__summary">{summary}</p>
+            <p className="movie__summary">{getSummary()}</p>
         </div>
     </div>;
 }
