@@ -23,11 +23,13 @@ class App extends React.Component {
   render() {
     const { isLoading, movies } = this.state;
     return (
-      <div>
+      <section className="container">
         {isLoading
-          ? "Loading..."
+          ? <div className="loader">
+            <span className="loader__text">Loading...</span>
+          </div>
           : movies.map((movie) => {
-            const { id, year, title, summary, poster } = movie;
+            const { id, year, title, summary, medium_cover_image } = movie;
             return (
               <Movie
                 key={id}
@@ -35,11 +37,11 @@ class App extends React.Component {
                 year={year}
                 title={title}
                 summary={summary}
-                poster={poster}
+                poster={medium_cover_image}
               />
             );
           })}
-      </div>
+      </section>
     );
   }
 }
