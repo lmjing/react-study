@@ -1,7 +1,8 @@
 import "./Home.css";
 import React from "react";
 import axios from "axios";
-import Movie from "./Movie";
+import Movie from "../components/Movie";
+
 class Home extends React.Component {
   state = {
     isLoading: true,
