@@ -9,14 +9,20 @@ const useInput = (initValue) => {
         const {
             target: { value }
         } = event;
-        setValue(value);
-        console.log(event.target);
+        let willUpdate = true;
+        if (typeof validator === "function") {
+            willUpdate = validator(value);
+        }
+        if (willUpdate) {
+            setValue(value);
+        }
     };
     return { value, onChange };
 };
 
 const App = () => {
-    const name = useInput("MJ");
+    const maxLen = (value) => value.length < 10;
+    const name = useInput("MJ", maxLen);
 
     return (
         <div className="App">
