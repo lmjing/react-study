@@ -1,0 +1,26 @@
+import { StrictMode } from "react";
+import useAxios from "./useAxios";
+
+const App = () => {
+    const { loading, error, data, refetch } = useAxios({
+        url: "https://yts.mx/api/v2/list_movies.json"
+    });
+    console.log(
+        `loading: ${loading}\nerror:${error}\ndata:${JSON.stringify(data)}`
+    );
+    return (
+        <div className="App">
+            <h1>{!loading && data && data.status}</h1>
+            <h2>{loading && "Loading"}</h2>
+            <button onClick={refetch}>refetch!</button>
+        </div>
+    );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(
+    <StrictMode>
+        <App />
+    </StrictMode>,
+    rootElement
+);
