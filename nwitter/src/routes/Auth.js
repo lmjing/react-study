@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useState } from "react";
-import { authService, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase";
+import { authService, createUserWithEmailAndPassword, signInWithEmailAndPassword, googleProvider, githubProvider, signInWithPopup } from "firebase";
 
 const Auth = () => {
     const [email, setEmail] = useState("");
@@ -29,6 +29,18 @@ const Auth = () => {
         }
     }
     const toggleAccount = () => { setNewAccount((prev) => !prev) }
+    const onSocialClick = async (event) => {
+        const { target: { name } } = event;
+
+        let provider;
+        if (name === "google") {
+            provider = googleProvider;
+        } else if (name === "github") {
+            provider = githubProvider;
+        }
+        const data = await signInWithPopup(authService, provider);
+        console.log(data);
+    }
 
     return (
         <div>
@@ -39,8 +51,8 @@ const Auth = () => {
                 {error}
             </form>
             <span onClick={toggleAccount}>{newAccont ? 'Log In' : 'Create Account'}</span>
-            <button>Continue with Google</button>
-            <button>Continue with Github</button>
+            <button name="google" onClick={onSocialClick}>Continue with Google</button>
+            <button name="github" onClick={onSocialClick}>Continue with Github</button>
         </div>
     )
 }
