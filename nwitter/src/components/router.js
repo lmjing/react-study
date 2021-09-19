@@ -1,11 +1,8 @@
-import { useState } from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
-import { authService } from "firebase";
 import Auth from "routes/Auth";
 import Home from "routes/Home";
 
-const AppRouter = () => {
-    const [isLoggedIn] = useState(authService.currentUser);
+const AppRouter = ({ isLoggedIn }) => {
 
     return (<Router>
         <Switch>

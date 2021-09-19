@@ -1,12 +1,12 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { authService } from "firebase";
+import { authService, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase";
 
 const Auth = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [newAccont] = useState(true);
+    const [newAccont, setNewAccount] = useState(true);
+    const [error, setError] = useState("");
 
     const onChange = (event) => {
         const { target: { name, value } } = event;
@@ -24,10 +24,11 @@ const Auth = () => {
                 data = await signInWithEmailAndPassword(authService, email, password);
             }
             console.log(data);
-        } catch (err) {
-            console.log(err);
+        } catch (error) {
+            setError(error.message);
         }
     }
+    const toggleAccount = () => { setNewAccount((prev) => !prev) }
 
     return (
         <div>
@@ -35,7 +36,9 @@ const Auth = () => {
                 <input type="email" name="email" placeholder="email" required value={email} onChange={onChange} />
                 <input type="password" name="password" placeholder="password" required value={password} onChange={onChange} />
                 <input type="submit" value={newAccont ? 'Create Account' : 'Log In'} />
+                {error}
             </form>
+            <span onClick={toggleAccount}>{newAccont ? 'Log In' : 'Create Account'}</span>
             <button>Continue with Google</button>
             <button>Continue with Github</button>
         </div>
