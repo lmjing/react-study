@@ -1,10 +1,15 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useState } from "react";
+import { dbService, collection, addDoc } from "firebase";
 
 const Home = () => {
     const [nweet, setNweet] = useState("");
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
+        await addDoc(collection(dbService, "nweets"), {
+            nweet,
+            createdAt: Date.now()
+        });
     }
     const onChange = (event) => {
         const { target: { value } } = event;
