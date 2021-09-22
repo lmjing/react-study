@@ -1,6 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useEffect, useState } from "react";
 import { dbService, collection, addDoc, onSnapshot } from "firebase";
+import Nweet from "components/Nweet";
 
 const Home = ({ userObj }) => {
     const NWEETS_KEY = "nweets";
@@ -39,10 +40,8 @@ const Home = ({ userObj }) => {
             </form>
             <div>
                 {
-                    nweets.map(({ id, text }) => (
-                        <div key={id}>
-                            <h4>{text}</h4>
-                        </div>
+                    nweets.map((nweetObj) => (
+                        <Nweet key={nweetObj.id} nweetObj={nweetObj} isOwner={nweetObj.creatorId === userObj.uid} />
                     ))
                 }
             </div>
