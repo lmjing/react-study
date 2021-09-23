@@ -2,13 +2,13 @@
 import React, { useEffect, useState } from "react";
 import { dbService, collection, addDoc, onSnapshot } from "firebase";
 import Nweet from "components/Nweet";
+import { NWEETS_KEY } from "config";
 
 const Home = ({ userObj }) => {
-    const NWEETS_KEY = "nweets";
     const [nweet, setNweet] = useState("");
     const [nweets, setNweets] = useState([]);
-    useEffect(() => {
-        const unsubscribe = onSnapshot(collection(dbService, NWEETS_KEY),
+    const fetchData = async () => {
+        return await onSnapshot(collection(dbService, NWEETS_KEY),
             (snapshot) => {
                 const nweetArray = snapshot.docs.map(doc => (
                     {
@@ -18,6 +18,9 @@ const Home = ({ userObj }) => {
                 ))
                 setNweets(nweetArray);
             });
+    }
+    useEffect(() => {
+        const unsubscribe = fetchData();
         return () => unsubscribe();
     }, [])
     const onSubmit = async (event) => {
