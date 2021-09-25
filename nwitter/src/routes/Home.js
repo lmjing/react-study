@@ -7,6 +7,8 @@ import { NWEETS_KEY } from "config";
 const Home = ({ userObj }) => {
     const [nweet, setNweet] = useState("");
     const [nweets, setNweets] = useState([]);
+    const [attachment, setAttachment] = useState();
+
     const fetchData = async () => {
         return await onSnapshot(collection(dbService, NWEETS_KEY),
             (snapshot) => {
@@ -39,10 +41,14 @@ const Home = ({ userObj }) => {
         const { target: { files } } = event;
         const reader = new FileReader();
         reader.onload = ((e) => {
-            const { target: { result } } = e;
-            console.log(result)
+            const { currentTarget: { result } } = e;
+            setAttachment(result);
         })
         reader.readAsDataURL(files[0]);
+    }
+    const onClearPhotoClick = (event) => {
+        event.preventDefault();
+        setAttachment(null);
     }
     return (
         <div>
@@ -50,6 +56,14 @@ const Home = ({ userObj }) => {
                 <input type="text" placeholder="What's on your mind?" maxLength={120} onChange={onChange} />
                 <input type="file" accept="image/*" onChange={onFileChange} />
                 <input type="submit" value="Nweet" />
+                {
+                    attachment && (
+                        <div>
+                            <img src={attachment} alt="preview" width="50px" height="50px" />
+                            <button onClick={onClearPhotoClick}>Clear</button>
+                        </div>
+                    )
+                }
             </form>
             <div>
                 {
