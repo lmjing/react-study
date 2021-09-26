@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { NWEETS_KEY } from "config";
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, GithubAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, GithubAuthProvider, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, updateDoc, doc, query, where, orderBy } from "firebase/firestore";
 import { getStorage, ref, uploadString, getDownloadURL, deleteObject } from "firebase/storage";
 
@@ -31,7 +31,8 @@ export {
     signInWithEmailAndPassword,
     onAuthStateChanged,
     signInWithPopup,
-    signOut
+    signOut,
+    updateProfile
 }
 
 // firebase

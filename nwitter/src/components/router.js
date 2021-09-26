@@ -8,7 +8,7 @@ const AppRouter = ({ isLoggedIn, userObj }) => {
 
     return (
         <Router>
-            {isLoggedIn && <Navigator></Navigator>}
+            {isLoggedIn && <Navigator userName={userObj.displayName} />}
             <Switch>
                 {
                     isLoggedIn ?
