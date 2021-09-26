@@ -10,8 +10,8 @@ const Home = ({ userObj }) => {
     const [nweets, setNweets] = useState([]);
     const [attachment, setAttachment] = useState("");
 
-    const fetchData = async () => {
-        return await onSnapshot(collection(dbService, NWEETS_KEY),
+    useEffect(() => {
+        onSnapshot(collection(dbService, NWEETS_KEY),
             (snapshot) => {
                 const nweetArray = snapshot.docs.map(doc => (
                     {
@@ -21,10 +21,6 @@ const Home = ({ userObj }) => {
                 ))
                 setNweets(nweetArray);
             });
-    }
-    useEffect(() => {
-        const unsubscribe = fetchData();
-        return () => unsubscribe();
     }, [])
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -56,7 +52,6 @@ const Home = ({ userObj }) => {
             setAttachment(result);
         })
         reader.readAsDataURL(files[0]);
-        console.log(files);
     }
     const onClearPhotoClick = (event) => {
         event.preventDefault();
