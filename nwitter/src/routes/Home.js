@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useEffect, useState } from "react";
-import { dbService, collection, addDoc, onSnapshot, storageService, ref, uploadString } from "firebase";
+import { dbService, collection, addDoc, onSnapshot, storageService, ref, uploadString, getDownloadURL } from "firebase";
 import Nweet from "components/Nweet";
 import { NWEETS_KEY } from "config";
 import { v4 as uuidv4 } from 'uuid';
@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 const Home = ({ userObj }) => {
     const [nweet, setNweet] = useState("");
     const [nweets, setNweets] = useState([]);
-    const [attachment, setAttachment] = useState();
+    const [attachment, setAttachment] = useState("");
 
     const fetchData = async () => {
         return await onSnapshot(collection(dbService, NWEETS_KEY),
@@ -28,13 +28,21 @@ const Home = ({ userObj }) => {
     }, [])
     const onSubmit = async (event) => {
         event.preventDefault();
-        const imgRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
-        uploadString(imgRef, attachment, 'data_url');
-        // await addDoc(collection(dbService, "nweets"), {
-        //     text: nweet,
-        //     createdAt: Date.now(),
-        //     creatorId: userObj.uid
-        // });
+
+        let attachmentURL = "";
+        if (attachment.length > 0) {
+            const attachmentRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
+            const response = await uploadString(attachmentRef, attachment, 'data_url')
+            attachmentURL = await getDownloadURL(response.ref);
+        }
+        await addDoc(collection(dbService, "nweets"), {
+            text: nweet,
+            createdAt: Date.now(),
+            creatorId: userObj.uid,
+            attachmentURL
+        });
+        setNweet("");
+        setAttachment("");
     }
     const onChange = (event) => {
         const { target: { value } } = event;
@@ -48,15 +56,16 @@ const Home = ({ userObj }) => {
             setAttachment(result);
         })
         reader.readAsDataURL(files[0]);
+        console.log(files);
     }
     const onClearPhotoClick = (event) => {
         event.preventDefault();
-        setAttachment(null);
+        setAttachment("");
     }
     return (
         <div>
             <form onSubmit={onSubmit}>
-                <input type="text" placeholder="What's on your mind?" maxLength={120} onChange={onChange} />
+                <input type="text" placeholder="What's on your mind?" maxLength={120} onChange={onChange} value={nweet} />
                 <input type="file" accept="image/*" onChange={onFileChange} />
                 <input type="submit" value="Nweet" />
                 {
