@@ -1,8 +1,9 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useEffect, useState } from "react";
-import { dbService, collection, addDoc, onSnapshot } from "firebase";
+import { dbService, collection, addDoc, onSnapshot, storageService, ref, uploadString } from "firebase";
 import Nweet from "components/Nweet";
 import { NWEETS_KEY } from "config";
+import { v4 as uuidv4 } from 'uuid';
 
 const Home = ({ userObj }) => {
     const [nweet, setNweet] = useState("");
@@ -27,11 +28,13 @@ const Home = ({ userObj }) => {
     }, [])
     const onSubmit = async (event) => {
         event.preventDefault();
-        await addDoc(collection(dbService, "nweets"), {
-            text: nweet,
-            createdAt: Date.now(),
-            creatorId: userObj.uid
-        });
+        const imgRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
+        uploadString(imgRef, attachment, 'data_url');
+        // await addDoc(collection(dbService, "nweets"), {
+        //     text: nweet,
+        //     createdAt: Date.now(),
+        //     creatorId: userObj.uid
+        // });
     }
     const onChange = (event) => {
         const { target: { value } } = event;

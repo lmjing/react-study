@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, GithubAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, updateDoc, doc } from "firebase/firestore";
+import { getStorage, ref, uploadString } from "firebase/storage";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -19,6 +20,7 @@ export const authService = getAuth();
 export const dbService = getFirestore();
 export const googleProvider = new GoogleAuthProvider();
 export const githubProvider = new GithubAuthProvider();
+export const storageService = getStorage();
 
 // auth
 export {
@@ -37,4 +39,9 @@ export {
     updateDoc,
     onSnapshot,
     doc
+}
+
+export {
+    ref,
+    uploadString
 }
