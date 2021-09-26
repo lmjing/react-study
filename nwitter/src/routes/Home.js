@@ -1,8 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import React, { useEffect, useState } from "react";
-import { dbService, collection, addDoc, onSnapshot, storageService, ref, uploadString, getDownloadURL } from "firebase";
+import { nweetsRef, addDoc, onSnapshot, storageService, ref, uploadString, getDownloadURL } from "firebase";
 import Nweet from "components/Nweet";
-import { NWEETS_KEY } from "config";
 import { v4 as uuidv4 } from 'uuid';
 
 const Home = ({ userObj }) => {
@@ -11,7 +10,7 @@ const Home = ({ userObj }) => {
     const [attachment, setAttachment] = useState("");
 
     useEffect(() => {
-        onSnapshot(collection(dbService, NWEETS_KEY),
+        onSnapshot(nweetsRef,
             (snapshot) => {
                 const nweetArray = snapshot.docs.map(doc => (
                     {
@@ -31,7 +30,7 @@ const Home = ({ userObj }) => {
             const response = await uploadString(attachmentRef, attachment, 'data_url')
             attachmentURL = await getDownloadURL(response.ref);
         }
-        await addDoc(collection(dbService, "nweets"), {
+        await addDoc(nweetsRef, {
             text: nweet,
             createdAt: Date.now(),
             creatorId: userObj.uid,
