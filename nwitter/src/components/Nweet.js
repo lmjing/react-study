@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { dbService, doc, deleteDoc, updateDoc } from "firebase";
+import { dbService, doc, deleteDoc, updateDoc, storageService, ref, deleteObject } from "firebase";
 import { NWEETS_KEY } from "config";
 
 const Nweet = ({ nweetObj, isOwner }) => {
@@ -10,6 +10,8 @@ const Nweet = ({ nweetObj, isOwner }) => {
         const ok = window.confirm("정말 삭제하시겠습니까?");
         if (ok) {
             await deleteDoc(doc(dbService, NWEETS_KEY, nweetObj.id));
+            const attachmentRef = await ref(storageService, nweetObj.attachmentURL);
+            await deleteObject(attachmentRef);
         }
     }
     const onChange = (event) => {
