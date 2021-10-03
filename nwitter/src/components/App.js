@@ -11,16 +11,29 @@ function App() {
     onAuthStateChanged(authService, (user) => {
       if (user) {
         setIsLoggedIn(true);
-        setUserObj(user);
+        setUserObj({
+          displayName: user.displayName,
+          uid: user.uid,
+          photoURL: user.photoURL,
+        });
       } else {
         setIsLoggedIn(false);
       }
       setInit(true);
     })
   }, []);
+  const refreshUser = () => {
+    // 너무 많은 데이터를 셋팅하면 과부하가 오므로, 필요한 내용만 담아 업데이트하여 React가 즉시 렌더링 되도록한다.
+    const user = authService.currentUser;
+    setUserObj({
+      displayName: user.displayName,
+      uid: user.uid,
+      photoURL: user.photoURL,
+    });
+  };
   return (
     <>
-      {init ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} /> : "initialize...."}
+      {init ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} refreshUser={refreshUser} /> : "initialize...."}
       <footer>&copy; {new Date().getFullYear()} mijeong</footer>
     </>
   );

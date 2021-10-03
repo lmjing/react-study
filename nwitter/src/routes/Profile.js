@@ -4,7 +4,7 @@ import { authService, nweetsRef, signOut, query, where, getDocs, orderBy, update
 import { v4 as uuidv4 } from 'uuid';
 import { useHistory } from "react-router";
 
-const Profile = ({ userObj }) => {
+const Profile = ({ userObj, refreshUser }) => {
     const defaultPhotoURL = "https://cdn-icons-png.flaticon.com/512/1177/1177568.png";
     const [displayName, setDisplayName] = useState(userObj.displayName ?? "");
     const [attachment, setAttachment] = useState(userObj.photoURL);
@@ -40,20 +40,22 @@ const Profile = ({ userObj }) => {
     }
     const onClearPhotoClick = (event) => {
         event.preventDefault();
-        setAttachment(defaultPhotoURL);
+        // setAttachment(defaultPhotoURL);
+        setAttachment(null);
     }
     const onSubmit = async (event) => {
         event.preventDefault();
-        let attachmentURL = ""
+        let attachmentURL = "";
         if (attachment && attachment.length > 0) {
             const attachmentRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
             const response = await uploadString(attachmentRef, attachment, 'data_url')
             attachmentURL = await getDownloadURL(response.ref);
         }
-        await updateProfile(userObj, {
+        await updateProfile(authService.currentUser, {
             displayName,
             photoURL: attachmentURL
         });
+        refreshUser();
     }
 
     return (
