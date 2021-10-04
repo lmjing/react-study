@@ -5,19 +5,17 @@ import { useEffect, useState } from "react";
 
 function App() {
   const [init, setInit] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userObj, setUserObj] = useState(null);
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
-        setIsLoggedIn(true);
         setUserObj({
           displayName: user.displayName,
           uid: user.uid,
           photoURL: user.photoURL,
         });
       } else {
-        setIsLoggedIn(false);
+        setUserObj(null);
       }
       setInit(true);
     })
@@ -33,7 +31,7 @@ function App() {
   };
   return (
     <>
-      {init ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} refreshUser={refreshUser} /> : "initialize...."}
+      {init ? <AppRouter isLoggedIn={userObj !== null} userObj={userObj} refreshUser={refreshUser} /> : "initialize...."}
       <footer>&copy; {new Date().getFullYear()} mijeong</footer>
     </>
   );

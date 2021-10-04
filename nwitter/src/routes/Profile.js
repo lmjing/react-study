@@ -13,8 +13,8 @@ const Profile = ({ userObj, refreshUser }) => {
     }, []);
 
     let history = useHistory();
-    const onClickLogout = () => {
-        signOut(authService);
+    const onClickLogout = async () => {
+        await signOut(authService);
         history.push("/");
     }
 
