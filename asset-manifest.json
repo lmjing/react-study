@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/lmjing/react-study/static/css/main.5a93c79c.chunk.css",
-    "main.js": "/lmjing/react-study/static/js/main.d5c95f62.chunk.js",
-    "main.js.map": "/lmjing/react-study/static/js/main.d5c95f62.chunk.js.map",
-    "runtime-main.js": "/lmjing/react-study/static/js/runtime-main.3beffe1d.js",
-    "runtime-main.js.map": "/lmjing/react-study/static/js/runtime-main.3beffe1d.js.map",
-    "static/js/2.dca7eefe.chunk.js": "/lmjing/react-study/static/js/2.dca7eefe.chunk.js",
-    "static/js/2.dca7eefe.chunk.js.map": "/lmjing/react-study/static/js/2.dca7eefe.chunk.js.map",
-    "index.html": "/lmjing/react-study/index.html",
-    "static/css/main.5a93c79c.chunk.css.map": "/lmjing/react-study/static/css/main.5a93c79c.chunk.css.map",
-    "static/js/2.dca7eefe.chunk.js.LICENSE.txt": "/lmjing/react-study/static/js/2.dca7eefe.chunk.js.LICENSE.txt"
+    "main.css": "/react-study/static/css/main.5a93c79c.chunk.css",
+    "main.js": "/react-study/static/js/main.d5c95f62.chunk.js",
+    "main.js.map": "/react-study/static/js/main.d5c95f62.chunk.js.map",
+    "runtime-main.js": "/react-study/static/js/runtime-main.ac7bec48.js",
+    "runtime-main.js.map": "/react-study/static/js/runtime-main.ac7bec48.js.map",
+    "static/js/2.3af1beed.chunk.js": "/react-study/static/js/2.3af1beed.chunk.js",
+    "static/js/2.3af1beed.chunk.js.map": "/react-study/static/js/2.3af1beed.chunk.js.map",
+    "index.html": "/react-study/index.html",
+    "static/css/main.5a93c79c.chunk.css.map": "/react-study/static/css/main.5a93c79c.chunk.css.map",
+    "static/js/2.3af1beed.chunk.js.LICENSE.txt": "/react-study/static/js/2.3af1beed.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.3beffe1d.js",
-    "static/js/2.dca7eefe.chunk.js",
+    "static/js/runtime-main.ac7bec48.js",
+    "static/js/2.3af1beed.chunk.js",
     "static/css/main.5a93c79c.chunk.css",
     "static/js/main.d5c95f62.chunk.js"
   ]
