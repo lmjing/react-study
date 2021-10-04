@@ -1,11 +1,5 @@
 /*
-useRef
-reference? component 중 일부를 선택할 수 있는 방법 (ex. like document.getElementById...)
-
-useEffect
-1. useEffect(func, []) = componentDidMount(), componentDidUpdate() 때 func 호출됨
-2. useEffect(func, [deps]) = componentDidMount()때 func 호출됨
-3. useEffect => func = componentWillUnmount()로 부터 호출됨
+hook 미사요
 */
 import { StrictMode } from "react";
 import ReactDOM from "react-dom";

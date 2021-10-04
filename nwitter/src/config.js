@@ -1,0 +1,1 @@
+export const NWEETS_KEY = "nweets";

@@ -1,5 +1,5 @@
 /*
-hook 미사요
+hook 미사용
 */
 import { StrictMode } from "react";
 import ReactDOM from "react-dom";
