@@ -80,6 +80,28 @@ form {
   flex-direction: column;
 }
 
+.profileForm__attachment {
+  text-align: center;
+  padding-top: 30px;
+}
+
+.profileForm__attachment img {
+  height: 120px;
+  width: 120px;
+  border-radius: 40px;
+}
+
+.profileForm__edit {
+  color: #04aaff;
+  cursor: pointer;
+  text-align: center;
+}
+
+.profileForm__edit span {
+  margin-right: 10px;
+  font-size: 12px;
+}
+
 .logOut {
   margin-top: 50px;
 }

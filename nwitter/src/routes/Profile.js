@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { authService, nweetsRef, signOut, query, where, getDocs, orderBy, updateProfile, ref, storageService, uploadString, getDownloadURL } from "firebase";
 import { v4 as uuidv4 } from 'uuid';
 import { useHistory } from "react-router";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const Profile = ({ userObj, refreshUser }) => {
     const defaultPhotoURL = "https://cdn-icons-png.flaticon.com/512/1177/1177568.png";
@@ -59,18 +61,60 @@ const Profile = ({ userObj, refreshUser }) => {
     }
 
     return (
-        <>
-            <form onSubmit={onSubmit}>
-                <input type="text" value={displayName} onChange={onDisplayNameChange} />
+        <div className="container">
+            <form onSubmit={onSubmit} className="profileForm">
+                <input
+                    type="text"
+                    value={displayName}
+                    autoFocus
+                    onChange={onDisplayNameChange}
+                />
+                <input
+                    type="submit"
+                    value="Update Profile"
+                    className="formBtn"
+                    style={{
+                        marginTop: 10,
+                    }}
+                />
                 <div>
-                    <img src={attachment ?? defaultPhotoURL} alt="preview" width="50px" height="50px" />
-                    <input type="file" accept="image/*" onChange={onFileChange} />
-                    <button onClick={onClearPhotoClick}>Clear</button>
+                    <div className="profileForm__attachment">
+                        <img
+                            src={attachment ?? defaultPhotoURL}
+                            alt="profileImage"
+                            style={{
+                                backgroundImage: attachment ?? defaultPhotoURL,
+                            }}
+                        />
+                        <div className="profileForm__edit">
+                            <span onClick={onClearPhotoClick}>
+                                <span>Remove</span>
+                                <FontAwesomeIcon icon={faTimes} />
+                            </span>
+                            <span>
+                                <label htmlFor="attach-file" className="factoryInput__label">
+                                    <span>Edit photo</span>
+                                    <FontAwesomeIcon icon={faPlus} />
+                                </label>
+                                <input
+                                    id="attach-file"
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={onFileChange}
+                                    style={{
+                                        opacity: 0,
+                                        height: 0
+                                    }}
+                                />
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <input type="submit" value="프로필 변경" />
             </form>
-            <button onClick={onClickLogout}>Log out</button>
-        </>
+            <span className="formBtn cancelBtn logOut" onClick={onClickLogout}>
+                Log Out
+            </span>
+        </div>
     )
 }
 
