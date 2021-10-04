@@ -5,7 +5,6 @@ import Home from "routes/Home";
 import Profile from "routes/Profile";
 
 const AppRouter = ({ isLoggedIn, userObj, refreshUser }) => {
-
     return (
         <Router>
             {isLoggedIn && <Navigator userName={userObj.displayName} />}

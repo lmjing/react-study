@@ -2,18 +2,16 @@ import AppRouter from "components/Router";
 import { authService, onAuthStateChanged } from "firebase";
 import { useEffect, useState } from "react";
 
-
 function App() {
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
+
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
+      console.log('onAuthStateChanged')
+      console.log(user)
       if (user) {
-        setUserObj({
-          displayName: user.displayName,
-          uid: user.uid,
-          photoURL: user.photoURL,
-        });
+        refreshUser();
       } else {
         setUserObj(null);
       }

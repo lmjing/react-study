@@ -42,13 +42,13 @@ const Profile = ({ userObj, refreshUser }) => {
     }
     const onClearPhotoClick = (event) => {
         event.preventDefault();
-        // setAttachment(defaultPhotoURL);
         setAttachment(null);
     }
     const onSubmit = async (event) => {
         event.preventDefault();
         let attachmentURL = "";
-        if (attachment && attachment.length > 0) {
+        if (attachment && attachment === userObj.photoURL) attachmentURL = userObj.photoURL;
+        else if (attachment && attachment.length > 0) {
             const attachmentRef = ref(storageService, `${userObj.uid}/${uuidv4()}`);
             const response = await uploadString(attachmentRef, attachment, 'data_url')
             attachmentURL = await getDownloadURL(response.ref);
